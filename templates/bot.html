@@ -1,0 +1,365 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>AI TickeTech</title>
+
+  <!-- Tailwind CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+  <link rel="icon" href="{% static 'logo.jpg' %}" type="image/x-icon" />
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet" />
+
+  <!-- Custom CSS -->
+  <style>
+    body {
+      font-family: "Roboto", sans-serif;
+      background: linear-gradient(45deg, #eeacc9, #51b7f1);
+      min-height: 100vh;
+    }
+
+    /* Chatbot UI */
+    .chat-container {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 90%;
+      max-width: 800px;
+      height: 90vh;
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+      background-color: rgba(255, 255, 255, 0.95);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      transition: all 0.4s ease-in-out;
+    }
+
+    .chat-header {
+      background: linear-gradient(45deg, #eeacc9, #51b7f1);
+      color: white;
+      padding: 20px;
+      font-size: 22px;
+      font-weight: 600;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .chat-header i {
+      cursor: pointer;
+      font-size: 20px;
+    }
+
+    .chat-body {
+      flex: 1;
+      padding: 15px;
+      overflow-y: auto;
+      background-color: #f9fafb;
+      position: relative;
+      height: calc(90vh - 140px);
+    }
+
+    .chat-footer {
+      position: sticky;
+      bottom: 0;
+      background-color: #f1f5f9;
+      border-top: 1px solid #e2e8f0;
+      padding: 15px;
+      display: flex;
+      box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.05);
+      z-index: 10;
+    }
+
+    .chat-footer input {
+      flex: 1;
+      border: 2px solid rgba(238, 172, 201, 0.3);
+      padding: 12px 16px;
+      border-radius: 30px;
+      background-color: white;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      outline: none;
+      font-size: 16px;
+      transition: all 0.3s ease;
+    }
+
+    .chat-footer input:focus {
+      border-color: #51b7f1;
+      box-shadow: 0 0 10px rgba(81, 183, 241, 0.2);
+    }
+
+    .chat-footer button {
+      background: linear-gradient(45deg, #eeacc9, #51b7f1);
+      color: white;
+      border: none;
+      padding: 12px;
+      border-radius: 50%;
+      margin-left: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+      transition: all 0.3s ease;
+    }
+
+    .chat-footer button:hover {
+      transform: scale(1.1);
+      background: linear-gradient(45deg, #51b7f1, #eeacc9);
+    }
+
+    /* Bot and User Message Styles */
+    .bot-message,
+    .user-message {
+      display: flex;
+      align-items: flex-start;
+      margin-bottom: 15px;
+    }
+
+    .bot-message i,
+    .user-message i {
+      margin-right: 10px;
+    }
+
+    .bot-message .message-content {
+      background: linear-gradient(45deg, rgba(238, 172, 201, 0.1), rgba(81, 183, 241, 0.1));
+      padding: 10px;
+      border-radius: 15px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+      font-size: 14px;
+      color: #1f2937;
+      backdrop-filter: blur(5px);
+    }
+
+    .user-message .message-content {
+      background-color: #4f46e5;
+      color: white;
+      padding: 10px;
+      border-radius: 15px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+      font-size: 14px;
+    }
+
+    .chat-body::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    .chat-body::-webkit-scrollbar-track {
+      background: rgba(238, 172, 201, 0.1);
+      border-radius: 10px;
+    }
+
+    .chat-body::-webkit-scrollbar-thumb {
+      background: linear-gradient(45deg, #eeacc9, #51b7f1);
+      border-radius: 10px;
+    }
+
+    .chat-body::-webkit-scrollbar-thumb:hover {
+      background: linear-gradient(45deg, #51b7f1, #eeacc9);
+    }
+
+    /* Fade-in Animation */
+    .fade-in {
+      animation: fadeIn 0.6s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Option Button Styles */
+    .option-buttons {
+      margin-top: 10px;
+    }
+
+    .option-button {
+      background: linear-gradient(45deg, #eeacc9, #51b7f1);
+      border: none;
+      padding: 10px 20px;
+      border-radius: 25px;
+      color: white;
+      font-weight: 500;
+      transition: all 0.3s ease;
+      margin: 5px 0;
+      width: 100%;
+      max-width: 300px;
+    }
+
+    .option-button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+      background: linear-gradient(45deg, #51b7f1, #eeacc9);
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Chatbot UI -->
+  <div class="chat-container fade-in" id="chatContainer">
+    <div class="chat-header">
+      <i class="fas fa-ticket-alt"></i>
+      <span>Ai TickeTech - {{ museum.name }}</span>
+      <i class="fas fa-times" id="closeChat"></i>
+    </div>
+
+    <div class="chat-body" id="chatBody">
+      <!-- Bot's Initial Message -->
+      <div class="bot-message fade-in">
+        <i class="fas fa-robot text-blue-500"></i>
+        <div class="message-content">
+          <p>Hello! I'm your AI guide for {{ museum.name }}. How can I assist you today?</p>
+          <div class="option-buttons">
+            <button class="option-button" onclick="handleOption('Museum Information', '{{museum.name}}')">
+              Museum Information</button>
+            <br />
+            <button class="option-button" onclick="handleOption('Entry Price Enquiry', '{{museum.name}}')">
+              Entry Price Enquiry</button><br />
+            <button class="option-button" onclick="handleOption('Operating Hours', '{{museum.name}}')">
+              Operating Hours</button><br />
+            <button class="option-button" onclick="handleOption('Directions to Museum', '{{museum.name}}')">
+              Directions to Museum</button><br />
+            <button class="option-button" onclick="handleOption('Nearby Attractions', '{{museum.name}}')">
+              Nearby Attractions</button><br />
+            <button class="option-button" onclick="handleOption('Any Other Queries? Please Type It.')">
+              Any Other Queries? Please Type It.
+            </button>
+            <button class="option-button" onclick="window.location.href='{% url 'ticket_booking' museum.name %}'">
+              Book Tickets
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="chat-footer">
+      <input type="text" id="userInput" placeholder="Ask me anything..." />
+      <button id="sendBtn"><i class="fas fa-paper-plane"></i></button>
+    </div>
+  </div>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+
+  <!-- JavaScript -->
+  <script>
+    // Get elements from the DOM
+    const chatContainer = document.getElementById("chatContainer");
+    const chatBody = document.getElementById("chatBody");
+    const userInput = document.getElementById("userInput");
+    const sendBtn = document.getElementById("sendBtn");
+    const closeChat = document.getElementById("closeChat");
+
+    // Get museum name from the backend
+    const museumName = "{{ museum.name }}";
+
+    // Close chat button event listener
+    closeChat.addEventListener("click", () => {
+      chatContainer.style.transform = "translateY(100%)";
+    });
+
+    // Function to decode HTML entities
+    function decodeHtml(html) {
+      const txt = document.createElement("textarea");
+      txt.innerHTML = html;
+      return txt.value;
+    }
+
+    // Function to format response from the bot
+    function formatResponse(response) {
+      let decoded = decodeHtml(response);
+      decoded = decoded.replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>");
+      decoded = decoded.replace(/\*/g, "<br>");
+      return decoded;
+    }
+
+    // Function to scroll to bottom
+    function scrollToBottom() {
+      const chatBody = document.getElementById("chatBody");
+      chatBody.scrollTop = chatBody.scrollHeight;
+    }
+
+    // Function to handle options selected by the user
+    function handleOption(option) {
+      const userMsgHTML = `
+            <div class="user-message fade-in">
+                <i class="fas fa-user-circle text-blue-500"></i>
+                <div class="message-content">
+                    <p>${option}</p>
+                </div>
+            </div>
+        `;
+      chatBody.innerHTML += userMsgHTML;
+      scrollToBottom();
+
+      fetch("{% url 'chat_with_ai' %}", {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-CSRFToken': '{{ csrf_token }}'
+        },
+        body: JSON.stringify({
+          user_input: option,
+          museum_name: museumName
+        })
+      })
+        .then(response => response.json())
+        .then(data => {
+          const botMsgHTML = `
+                <div class="bot-message fade-in">
+                    <i class="fas fa-robot text-blue-500"></i>
+                    <div class="message-content">
+                        <p>${formatResponse(data.response)}</p>
+                    </div>
+                </div>
+            `;
+          chatBody.innerHTML += botMsgHTML;
+          scrollToBottom();
+        })
+        .catch(error => {
+          console.error("Error:", error);
+          const botMsgHTML = `
+                <div class="bot-message fade-in">
+                    <i class="fas fa-robot text-blue-500"></i>
+                    <div class="message-content">
+                        <p>Sorry, I couldn't process your request. Please try again later.</p>
+                    </div>
+                </div>
+            `;
+          chatBody.innerHTML += botMsgHTML;
+          scrollToBottom();
+        });
+    }
+
+    // Send message event listener
+    sendBtn.addEventListener("click", () => {
+      const userMessage = userInput.value.trim();
+      if (userMessage !== "") {
+        handleOption(userMessage);
+        userInput.value = "";
+      }
+    });
+
+    // Enter key event listener
+    userInput.addEventListener("keypress", (e) => {
+      if (e.key === "Enter") {
+        sendBtn.click();
+      }
+    });
+  </script>
+
+</body>
+
+</html>

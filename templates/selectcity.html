@@ -1,0 +1,99 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TICKETECH</title>
+    <link rel="icon" href="{% static 'logo.jpg' %}" type="image/x-icon" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <style>
+      img {
+        border-radius: 5px;
+        height: 50px;
+        margin-top: 25px;
+      }
+      body {
+        background-image: url("{% static 'image.png' %}");
+        background-repeat: no-repeat;
+        background-size: cover;
+        opacity: 0.8;
+      }
+      .hover-effect:hover {
+        transform: scale(1.05);
+        transition: transform 0.2s;
+      }
+      .gradient-dropdown {
+        background: linear-gradient(135deg, #eeacc9, #51b7);
+        border: none;
+        font-weight: bold;
+        color: rgb(61, 59, 59);
+      }
+      #submit {
+        margin-top: 20px;
+        border-radius: 10px;
+        border: 1px solid black;
+        padding: 10px;
+        cursor: pointer;
+        float: right;
+        background: linear-gradient(45deg, #eeacc9, #51b7f1);
+        font-weight: bold;
+        color: rgb(61, 59, 59);
+      }
+      footer {
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+        text-align: center;
+        font-size: 20px;
+        font-weight: bold;
+        height: 100px;
+        line-height: 100px;
+        background-color: rgb(7, 7, 37);
+        color: white;
+      }
+      header {
+        position: fixed;
+        top: 0;
+        width: 100%;
+        text-align: center;
+        font-size: 20px;
+        font-weight: bold;
+        height: 100px;
+        line-height: 100px;
+        background-color: rgb(7, 7, 37);
+        color: black;
+        font-size: 40px;
+      }
+      #submit:hover {
+        transform: scale(1.05);
+        transition: transform 0.2s;
+      }
+    </style>
+  </head>
+  <body class="gradient-bg flex items-center justify-center h-screen">
+    <header>
+       
+        <img
+          src="{% static 'logo.jpg' %}"
+          alt="logo"
+          width="200px"
+          height="150px"
+        />
+      </header>
+    <div class="bg-white p-6 rounded-lg shadow-lg">
+      <h1 class="text-2xl font-bold mb-4">Select Your City</h1>
+      <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button id="submit" type="submit">View places</button>
+    </form>
+      
+    </div>
+  </body>
+  <footer>
+    <p>&copy; 2024 TickeTech.Pvt Ltd @ All rights reserved.</p>
+  </footer>
+</html>

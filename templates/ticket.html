@@ -1,0 +1,172 @@
+<!-- ticket_booking.html -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ticket Booking</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: "Roboto", sans-serif;
+            background: linear-gradient(45deg, #eeacc9, #51b7f1);
+            min-height: 100vh;
+            padding: 2rem;
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            transition: all 0.4s ease-in-out;
+        }
+
+        .ticket-item {
+            background: linear-gradient(45deg, rgba(238, 172, 201, 0.1), rgba(81, 183, 241, 0.1));
+            border: none !important;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .ticket-item:hover {
+            transform: translateY(-2px);
+        }
+
+        .btn {
+            background: linear-gradient(45deg, #eeacc9, #51b7f1);
+            transition: all 0.3s ease;
+            border: none;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            background: linear-gradient(45deg, #51b7f1, #eeacc9);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        input,
+        select {
+            border: 2px solid rgba(238, 172, 201, 0.3) !important;
+            border-radius: 8px !important;
+            transition: all 0.3s ease !important;
+        }
+
+        input:focus,
+        select:focus {
+            border-color: #51b7f1 !important;
+            box-shadow: 0 0 10px rgba(81, 183, 241, 0.2) !important;
+            outline: none !important;
+        }
+
+        .fade-in {
+            animation: fadeIn 0.6s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container max-w-3xl mx-auto p-8 fade-in">
+        <h2 class="text-3xl font-bold mb-6 text-gray-800">Book Tickets for {{ museum.name }}</h2>
+
+        <form method="POST" id="ticket-form">
+            {% csrf_token %}
+            <div id="ticket-container" class="space-y-6">
+                {% for form in forms %}
+                <div class="ticket-item p-6 rounded-lg">
+                    <h3 class="text-xl font-semibold mb-4 text-gray-700">Ticket {{ forloop.counter }}</h3>
+                    <div class="space-y-4">
+                        {{ form.as_p }}
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+
+            <div class="flex gap-4 mt-8">
+                <button type="button" id="add-ticket" class="btn px-6 py-3 rounded-lg text-white font-medium">
+                    + Add Another Ticket
+                </button>
+                <button type="submit" class="btn px-6 py-3 rounded-lg text-white font-medium">
+                    Complete Booking
+                </button>
+            </div>
+
+            <input type="hidden" name="form-TOTAL_FORMS" id="form-TOTAL_FORMS" value="{{ forms|length }}">
+        </form>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            let formCount = {{ forms| length
+        }}; // Fixed template syntax
+
+        document.getElementById('add-ticket').addEventListener('click', function () {
+            // Clone the first form as a template
+            const firstForm = document.querySelector('.ticket-item').cloneNode(true);
+
+            // Update the ticket number in the heading
+            const heading = firstForm.querySelector('h3');
+            heading.textContent = `Ticket ${formCount + 1}`;
+
+            // Reset input values and update form indices
+            firstForm.querySelectorAll('input, select').forEach(input => {
+                // Skip the CSRF token input
+                if (input.name === 'csrfmiddlewaretoken') {
+                    return;
+                }
+
+                // Store original name and id
+                const originalName = input.name;
+                const originalId = input.id;
+
+                // Reset value
+                input.value = '';
+
+                // Update form prefix in name and id attributes
+                if (originalName) {
+                    input.name = originalName.replace(/\d+/, formCount);
+                }
+                if (originalId) {
+                    input.id = originalId.replace(/\d+/, formCount);
+                }
+
+                // Update associated label's 'for' attribute
+                const label = input.previousElementSibling;
+                if (label && label.tagName === 'LABEL') {
+                    const labelFor = label.getAttribute('for');
+                    if (labelFor) {
+                        label.setAttribute('for', labelFor.replace(/\d+/, formCount));
+                    }
+                }
+            });
+
+            // Add fade-in animation class
+            firstForm.classList.add('fade-in');
+
+            // Update form count and adjust hidden input
+            formCount++;
+            document.getElementById('form-TOTAL_FORMS').value = formCount;
+
+            // Append cloned form to the container
+            document.getElementById('ticket-container').appendChild(firstForm);
+        });
+        });
+    </script>
+</body>
+
+</html>

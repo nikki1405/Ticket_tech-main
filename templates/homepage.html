@@ -1,0 +1,2060 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>CHATBOT based Ticket Generating System</title>
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+
+  <!-- Favicons -->
+  <link href="{% static 'assets/logo.png' %}" rel="icon">
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com" rel="preconnect">
+  <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Inter:wght@100;200;300;400;500;600;700;800;900&family=Nunito:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+    rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="{% static 'assets/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/vendor/bootstrap-icons/bootstrap-icons.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/vendor/aos/aos.css' %} " rel="stylesheet">
+  <link href="{% static 'assets/vendor/glightbox/css/glightbox.min.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/vendor/swiper/swiper-bundle.min.css' %}" rel="stylesheet">
+
+  <style>
+    :root {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      cursor:url("{% static 'image.png' %}");
+    }
+
+    body {
+      font-family: sans-serif;
+      background: linear-gradient(45deg, #eeacc9, #51b7f1);
+    }
+
+    .hero-bg {
+      width: 50px;
+      height: 50px;
+    }
+
+    #hero a {
+      color: white;
+      border: 2px #0dcaf0;
+    }
+
+    a {
+      color: rgb(19, 14, 14);
+      text-decoration: none;
+      transition: 0.3s;
+    }
+
+    #hero h1 {
+
+      color: white;
+    }
+
+    #header img {
+
+      height: 90%;
+      width: 90%;
+    }
+
+    #hero a:hover {
+      color: color-mix(in srgb, black, transparent 25%);
+      text-decoration: none;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+      color: rgb(16, 14, 14);
+      font-family: sans-serif;
+    }
+
+    #hero p {
+      color: rgb(202, 227, 5);
+      font-weight: 10%;
+    }
+
+
+    /*--------------------------------------------------------------
+# Global Header
+--------------------------------------------------------------*/
+    .header {
+      background-color: rgb(7, 7, 37);
+      border: 2px solid rgb(4, 45, 48);
+      box-shadow: 8px 8px 8px rgba(235, 246, 247, 0.9);
+      padding: 20px 0;
+      transition: all 0.5s;
+      z-index: 997;
+    }
+
+    .header .logo {
+      line-height: 1;
+    }
+
+    .header .logo img {
+      max-height: 100px;
+
+      margin-right: 8px;
+    }
+
+    .header .logo h1 {
+      font-size: 30px;
+      margin: 0;
+      font-weight: 700;
+
+    }
+
+    @media (max-width: 480px) {
+      .header .logo img {
+        max-height: 24px;
+      }
+
+      .header .logo h1 {
+        font-size: 24px;
+      }
+    }
+
+    .header .btn-getstarted,
+    .header .btn-getstarted:focus {
+      color: rgb(11, 11, 11);
+      background-color: #ede7e7;
+      font-size: 14px;
+      padding: 8px 25px;
+      margin: 0 0 0 30px;
+      border-radius: 50px;
+      transition: 0.3s;
+    }
+
+    .header .btn-getstarted:hover,
+    .header .btn-getstarted:focus:hover {
+      color: #fff;
+      background: color-mix(in srgb, black, transparent 15%);
+    }
+
+    @media (max-width: 1200px) {
+      .header .logo {
+        order: 1;
+      }
+
+      .header .btn-getstarted {
+        order: 2;
+        margin: 0 15px 0 0;
+        padding: 6px 15px;
+      }
+
+      .header .navmenu {
+        order: 3;
+      }
+    }
+
+    .scrolled .header {
+      box-shadow: 0px 0 18px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Index Page Header
+------------------------------*/
+    .index-page .header {
+      --background-color: rgba(255, 255, 255, 0);
+    }
+
+    /* Index Page Header on Scroll
+------------------------------*/
+    .index-page.scrolled .header {
+      --background-color: #ffffff;
+    }
+
+    /*--------------------------------------------------------------
+# Navigation Menu
+--------------------------------------------------------------*/
+    /* Desktop Navigation */
+    @media (min-width: 1200px) {
+      #navmenu {
+        padding: 0;
+        background-color: linear-gradient(45deg, #eeacc9, #51b7f1);
+      }
+
+      .navmenu ul {
+        background-color: rgb(7, 7, 37);
+        margin: 0;
+        padding: 0;
+        display: flex;
+        list-style: none;
+        align-items: center;
+      }
+
+      .navmenu li {
+        position: relative;
+        background: rgb(7, 7, 37);
+      }
+
+      .navmenu a,
+      .navmenu a:focus {
+        color: rgb(239, 237, 237);
+        padding: 18px 15px;
+        font-size: 16px;
+        font-family: cursive;
+        font-weight: 400;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        white-space: nowrap;
+        transition: 0.3s;
+      }
+
+      .navmenu a i,
+      .navmenu a:focus i {
+        font-size: 12px;
+        line-height: 0;
+        margin-left: 5px;
+        transition: 0.3s;
+      }
+
+      .navmenu li:last-child a {
+        padding-right: 0;
+      }
+
+      .navmenu ul li a:hover {
+        color: #fbfdfd;
+        font-weight: bold;
+      }
+
+      .navmenu li:hover a,
+      .navmenu .active,
+      .navmenu .active:focus {
+        color: rgb(250, 246, 246);
+      }
+
+      .navmenu .dropdown ul {
+        margin: 0;
+        padding: 10px 0;
+
+        display: block;
+        position: absolute;
+        visibility: hidden;
+        left: 14px;
+        top: 130%;
+        opacity: 0;
+        transition: 0.3s;
+        border-radius: 4px;
+        z-index: 99;
+        box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.1);
+      }
+
+      .navmenu .dropdown ul li {
+        min-width: 200px;
+      }
+
+      .navmenu .dropdown ul a {
+        padding: 10px 20px;
+        font-size: 15px;
+        text-transform: none;
+      }
+
+      .navmenu .dropdown ul a i {
+        font-size: 12px;
+      }
+
+      .navmenu .dropdown:hover>ul {
+        opacity: 1;
+        top: 100%;
+        visibility: visible;
+      }
+
+      .navmenu .dropdown .dropdown ul {
+        top: 0;
+        left: -90%;
+        visibility: hidden;
+      }
+
+      .navmenu .dropdown .dropdown:hover>ul {
+        opacity: 1;
+        top: 0;
+        left: -100%;
+        visibility: visible;
+      }
+
+      .navmenu .megamenu {
+        position: static;
+      }
+
+      .navmenu .megamenu ul {
+        margin: 0;
+        padding: 10px;
+        box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+        position: absolute;
+        top: 130%;
+        left: 0;
+        right: 0;
+        visibility: hidden;
+        opacity: 0;
+        display: flex;
+        transition: 0.3s;
+        border-radius: 4px;
+        z-index: 99;
+      }
+
+      .navmenu .megamenu ul li {
+        flex: 1;
+      }
+
+      .navmenu .megamenu ul li a,
+      .navmenu .megamenu ul li:hover>a {
+        padding: 10px 20px;
+        font-size: 15px;
+        color: black;
+      }
+
+      .navmenu .megamenu:hover>ul {
+        opacity: 1;
+        top: 100%;
+        visibility: visible;
+      }
+    }
+
+    /* Mobile Navigation */
+    @media (max-width: 1199px) {
+      .mobile-nav-toggle {
+        color: rgb(246, 242, 242);
+        font-size: 28px;
+        line-height: 0;
+        margin-right: 10px;
+        cursor: pointer;
+        transition: color 0.3s;
+      }
+
+      .navmenu {
+        padding: 0;
+        z-index: 9997;
+      }
+
+      .navmenu ul {
+        display: none;
+        list-style: none;
+        position: absolute;
+        inset: 60px 20px 20px 20px;
+        padding: 10px 0;
+        margin: 0;
+        border-radius: 6px;
+        background: linear-gradient(45deg, #eeacc9, #51b7f1);
+        overflow-y: auto;
+        transition: 0.3s;
+        z-index: 9998;
+        box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.1);
+      }
+
+      .navmenu a,
+      .navmenu a:focus {
+        color: black;
+        padding: 10px 20px;
+        font-family: cursive;
+        font-size: 17px;
+        font-weight: 500;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        white-space: nowrap;
+        transition: 0.3s;
+      }
+
+      .navmenu a i,
+      .navmenu a:focus i {
+        font-size: 12px;
+        line-height: 0;
+        margin-left: 5px;
+        width: 30px;
+        height: 30px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        transition: 0.3s;
+        background: linear-gradient(45deg, #eeacc9, #51b7f1);
+      }
+
+      .navmenu a:hover,
+      .navmenu .active,
+      .navmenu .active:focus {
+        color: rgb(247, 244, 244);
+      }
+
+      .navmenu .active i,
+      .navmenu .active:focus i {
+        background: linear-gradient(45deg, #eeacc9, #51b7f1);
+        color: white;
+        transform: rotate(180deg);
+      }
+
+
+      .mobile-nav-active {
+        overflow: hidden;
+      }
+
+      .mobile-nav-active .mobile-nav-toggle {
+        color: #fff;
+        position: absolute;
+        font-size: 32px;
+        top: 15px;
+        right: 15px;
+        margin-right: 0;
+        z-index: 9999;
+      }
+
+      .mobile-nav-active .navmenu {
+        position: fixed;
+        overflow: hidden;
+        inset: 0;
+        background: rgba(33, 37, 41, 0.8);
+        transition: 0.3s;
+      }
+
+      .mobile-nav-active .navmenu>ul {
+        display: block;
+      }
+    }
+
+    .footer {
+      border: 2px rgb(248, 245, 245);
+      font-size: 14px;
+      padding-bottom: 50px;
+      position: relative;
+    }
+
+
+
+    .footer .footer-about .logo span {
+      font-size: 26px;
+      font-weight: 700;
+      letter-spacing: 1px;
+    }
+
+    .footer .footer-about p {
+      font-size: 14px;
+
+    }
+
+    .footer h4 {
+      font-size: 16px;
+      font-weight: bold;
+      position: relative;
+      padding-bottom: 12px;
+      color: white;
+    }
+
+    .footer .footer-links {
+      margin-bottom: 30px;
+      color: white;
+    }
+
+    .footer .footer-links ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      color: white;
+    }
+
+    .footer .footer-links ul i {
+      padding-right: 2px;
+      font-size: 12px;
+      line-height: 0;
+      color: white;
+    }
+
+    .footer .footer-links ul li {
+      padding: 10px 0;
+      display: flex;
+      align-items: center;
+      color: white;
+    }
+
+    .footer .footer-links ul li:first-child {
+      padding-top: 0;
+      color: white;
+    }
+
+    .footer .footer-links ul a {
+      display: inline-block;
+      line-height: 1;
+      color: white;
+    }
+
+    .footer .footer-links ul a:hover {
+      color: white;
+      font-weight: bold;
+    }
+
+    .footer .footer-contact p {
+      margin-bottom: 5px;
+      color: white;
+    }
+
+    .footer .footer-newsletter .newsletter-form {
+      margin-top: 30px;
+      margin-bottom: 15px;
+      padding: 6px 8px;
+      position: relative;
+      border-radius: 50px;
+      display: flex;
+      transition: 0.3s;
+    }
+
+    .footer .footer-newsletter .newsletter-form:focus-within {
+      color: white;
+    }
+
+    .footer .footer-newsletter .newsletter-form input[type=email] {
+      border: 0;
+      padding: 4px 10px;
+      width: 100%;
+
+    }
+
+    .footer .footer-newsletter .newsletter-form input[type=email]:focus-visible {
+      outline: none;
+    }
+
+    .footer .footer-newsletter .newsletter-form input[type=submit] {
+      border: 0;
+      font-size: 16px;
+      padding: 0 20px;
+      margin: -7px -9px -7px 0;
+      background-color: rgb((7), 7, 37);
+      transition: 0.3s;
+      border-radius: 50px;
+    }
+
+    .footer .footer-newsletter .newsletter-form input[type=submit]:hover {
+      background-color: rgb(7, 7, 37);
+
+    }
+
+    .footer .copyright {
+      padding-top: 25px;
+      padding-bottom: 25px;
+      border-top: 3px solid color-mix(in srgb, white, transparent 90%);
+    }
+
+    .footer .copyright p {
+      margin-bottom: 0;
+    }
+
+    .footer .credits {
+      margin-top: 6px;
+      font-size: 13px;
+    }
+
+    /*--------------------------------------------------------------
+# Preloader
+--------------------------------------------------------------*/
+    #preloader {
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      overflow: hidden;
+      transition: all 0.6s ease-out;
+      width: 100%;
+      height: 100vh;
+    }
+
+    #preloader:before,
+    #preloader:after {
+      content: "";
+      position: absolute;
+      background: linear-gradient(45deg, #eeacc9, #51b7f1);
+      border-radius: 50%;
+      animation: animate-preloader 2s cubic-bezier(0, 0.2, 0.8, 1) infinite;
+    }
+
+    #preloader:after {
+      animation-delay: -0.5s;
+    }
+
+    @keyframes animate-preloader {
+      0% {
+        width: 10px;
+        height: 10px;
+        top: calc(50% - 5px);
+        left: calc(50% - 5px);
+        opacity: 1;
+      }
+
+      100% {
+        width: 72px;
+        height: 72px;
+        top: calc(50% - 36px);
+        left: calc(50% - 36px);
+        opacity: 0;
+      }
+    }
+
+    /*--------------------------------------------------------------
+# Scroll Top Button
+--------------------------------------------------------------*/
+    .scroll-top {
+      position: fixed;
+      visibility: hidden;
+      opacity: 0;
+      right: 15px;
+      bottom: -15px;
+      z-index: 99999;
+      background-color: wheat;
+      width: 44px;
+      height: 44px;
+      border-radius: 50px;
+      transition: all 0.4s;
+    }
+
+    .scroll-top i {
+      font-size: 24px;
+      color: #131010;
+      line-height: 0;
+    }
+
+    .scroll-top:hover {
+      background-color: color-mix(in srgb, rgb(5, 66, 95), transparent 20%);
+      color: white;
+    }
+
+    .scroll-top.active {
+      visibility: visible;
+      opacity: 1;
+      bottom: 15px;
+    }
+
+    /*--------------------------------------------------------------
+# Disable aos animation delay on mobile devices
+--------------------------------------------------------------*/
+    @media screen and (max-width: 768px) {
+      [data-aos-delay] {
+        transition-delay: 0 !important;
+      }
+    }
+
+    /*--------------------------------------------------------------
+# Global Page Titles & Breadcrumbs
+--------------------------------------------------------------*/
+    .page-title {
+      --background-color: color-mix(in srgb, var(--default-color), transparent 96%);
+      color: var(--default-color);
+      background: linear-gradient(45deg, #eeacc9, #51b7f1);
+      padding: 25px 0;
+      position: relative;
+    }
+
+    .page-title h1 {
+      font-size: 24px;
+      font-weight: 700;
+    }
+
+    .page-title .breadcrumbs ol {
+      display: flex;
+      flex-wrap: wrap;
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      font-size: 14px;
+    }
+
+    .page-title .breadcrumbs ol li+li {
+      padding-left: 10px;
+    }
+
+    .page-title .breadcrumbs ol li+li::before {
+      content: "/";
+      display: inline-block;
+      padding-right: 10px;
+      color: color-mix(in srgb, var(--default-color), transparent 70%);
+    }
+
+    /*--------------------------------------------------------------
+# Global Sections
+--------------------------------------------------------------*/
+    section,
+    .section {
+      padding: 60px 0;
+      scroll-margin-top: 100px;
+      overflow: clip;
+    }
+
+    @media (max-width: 1199px) {
+
+      section,
+      .section {
+        scroll-margin-top: 66px;
+      }
+    }
+
+    /*--------------------------------------------------------------
+# Global Section Titles
+--------------------------------------------------------------*/
+    .section-title {
+      text-align: center;
+      padding-bottom: 60px;
+      position: relative;
+    }
+
+    .section-title h2 {
+      font-size: 32px;
+      font-weight: 700;
+      margin-bottom: 20px;
+      padding-bottom: 20px;
+      position: relative;
+    }
+
+    .section-title h2:after {
+      content: "";
+      position: absolute;
+      display: block;
+      width: 50px;
+      height: 3px;
+      background: linear-gradient(45deg, #eeacc9, #51b7f1);
+      left: 0;
+      right: 0;
+      bottom: 0;
+      margin: auto;
+    }
+
+    .section-title p {
+      margin-bottom: 0;
+    }
+
+    /*--------------------------------------------------------------
+# Hero Section
+--------------------------------------------------------------*/
+    .hero {
+      width: 100%;
+      min-height: 70vh;
+      position: relative;
+      padding: 180px 0 40px 0;
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+    }
+
+    .hero .hero-bg::before {
+      content: "";
+      background: linear-gradient(45deg, #eeacc9, #51b7f1);
+      background-image: url(https://s2.easternpeak.com/wp-content/uploads/2022/07/How-AI-is-Transforming-the-Travel-Industry-1.jpg);
+      background-size: cover;
+      /* Ensures the image covers the entire background */
+      background-position: center;
+      /* Centers the image */
+      background-repeat: no-repeat;
+      position: absolute;
+      inset: 0;
+      z-index: 2;
+    }
+
+    .hero .container {
+      position: relative;
+      z-index: 3;
+    }
+
+    .hero h1 {
+      margin: 0;
+      font-size: 48px;
+      font-weight: 700;
+      line-height: 56px;
+    }
+
+    .hero h1 span {
+      color: #eff3f2;
+    }
+
+    .hero p {
+      color: white;
+      margin: 5px 0 30px 0;
+      font-size: 20px;
+      font-weight: 400;
+    }
+
+    @media (min-width: 768px) {
+      .hero .hero-img {
+        max-width: 600px;
+      }
+    }
+
+    .hero .btn-get-started {
+      font-weight: 500;
+      font-size: 15px;
+      letter-spacing: 1px;
+      display: inline-block;
+      padding: 10px 28px;
+      border-radius: 50px;
+      transition: 0.5s;
+      box-shadow: 0 8px 28px rgba(183, 14, 14, 0.1);
+    }
+
+    .hero .btn-get-started:hover {
+      background: color-mix(in srgb, white, transparent 15%);
+      box-shadow: 0 8px 28px rgba(0, 0, 0, 0.1);
+    }
+
+    .hero .btn-watch-video {
+      font-size: 16px;
+      transition: 0.5s;
+      margin-left: 25px;
+      font-weight: 600;
+    }
+
+    .hero .btn-watch-video i {
+
+      font-size: 32px;
+      transition: 0.3s;
+      line-height: 0;
+      margin-right: 8px;
+    }
+
+    @media (max-width: 640px) {
+      .hero h1 {
+        font-size: 28px;
+        line-height: 36px;
+      }
+
+      .hero p {
+        font-size: 18px;
+        line-height: 24px;
+        margin-bottom: 20px;
+      }
+
+      .hero .btn-get-started,
+      .hero .btn-watch-video {
+        font-size: 13px;
+      }
+    }
+
+    /*--------------------------------------------------------------
+# Featured Services Section
+--------------------------------------------------------------*/
+    .featured-services {
+      padding: 20px 0;
+
+    }
+
+    .featured-services .service-item {
+      position: relative;
+      padding-top: 10px;
+      border: 2px solid rgb(17, 16, 16);
+      box-shadow: 8px 8px 8px rgba(203, 225, 227, 0.9);
+    }
+
+    .featured-services .service-item:hover {
+      background-color: #e5e2e9;
+    }
+
+    .featured-services .service-item .icon {
+      background-color: color-mix(in srgb, rgb(243, 237, 237), transparent 80%);
+      width: 74px;
+      height: 70px;
+      position: relative;
+      margin-right: 20px;
+      line-height: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: ease-in-out 0.3s;
+    }
+
+    .featured-services .service-item .icon i {
+      font-size: 32px;
+      z-index: 2;
+      position: relative;
+    }
+
+    .featured-services .service-item .title {
+      font-weight: 700;
+      margin-bottom: 2px;
+      font-size: 18px;
+    }
+
+    .featured-services .service-item .title a {
+      border: 2px solid black;
+    }
+
+    .featured-services .service-item .description {
+      font-size: 14px;
+      border: 2px solid black;
+    }
+
+
+    /*--------------------------------------------------------------
+# About Section
+--------------------------------------------------------------*/
+    .about {
+      padding-bottom: 10px;
+    }
+
+    #about h2 {
+      font-weight: 2px;
+    }
+
+    #about .col-lg-6 img {
+      padding-left: 2px;
+    }
+
+    .about .content .who-we-are {
+      text-transform: uppercase;
+      margin-bottom: 10px;
+      color: color-mix(in srgb, black, transparent 40%);
+    }
+
+    .about .content h2 {
+      font-size: 2rem;
+    }
+
+    .about .content ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .about .content ul li {
+      padding-bottom: 10px;
+    }
+
+    .about .content ul i {
+      font-size: 1.25rem;
+      margin-right: 4px;
+      color: var(--accent-color);
+    }
+
+    .about .content p:last-child {
+      margin-bottom: 0;
+    }
+
+    .about .about-images img {
+      border-radius: 10px;
+      border: 2px solid black;
+
+      box-shadow: 2px rgb(248, 246, 246);
+    }
+
+    /*--------------------------------------------------------------
+# Features Section
+--------------------------------------------------------------*/
+    .features .nav-tabs {
+      border: 0;
+    }
+
+    .features .nav-item {
+      width: 100%;
+      margin-bottom: 15px;
+    }
+
+    .features .nav-item:last-child {
+      margin-bottom: 0;
+    }
+
+    .features .nav-link {
+
+      border: 2px black;
+      padding: 30px;
+      transition: 0.3s;
+      border-radius: 10px;
+      display: flex;
+      cursor: pointer;
+    }
+
+    .features .nav-link i {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-right: 20px;
+      width: 48px;
+      height: 48px;
+      font-size: 22px;
+      flex-shrink: 0;
+      border-radius: 50px;
+      box-shadow: 0 2px 4px rgba(231, 228, 228, 0.1);
+    }
+
+    .features .nav-link h4 {
+      font-size: 20px;
+      font-weight: 600;
+      margin: 0 0 10px 0;
+      transition: 0.3s;
+    }
+
+    .features .nav-link p {
+      font-size: 15px;
+      margin: 0;
+    }
+
+    #features .col-lg-6 {
+      color: #000000;
+    }
+
+    #features .col-lg-6 :hover {
+      background: rgb(246, 242, 242);
+      box-shadow: 8px 8px 8px rgba(248, 249, 249, 0.9);
+    }
+
+    .features .tab-pane img {
+      border-radius: 15px;
+
+    }
+
+    /*--------------------------------------------------------------
+# Features Details Section
+--------------------------------------------------------------*/
+    .features-details .features-item+.features-item {
+      margin-top: 60px;
+    }
+
+    .features-details .features-item .content {
+      padding: 30px;
+      border-radius: 10px;
+    }
+
+    .features-details .features-item h3 {
+      font-weight: 700;
+      font-size: 26px;
+      margin-bottom: 15px;
+    }
+
+    .features-details .features-item .more-btn {
+      padding: 6px 30px;
+      border-radius: 6px;
+    }
+
+    .features-details .features-item ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .features-details .features-item ul li {
+      padding-bottom: 10px;
+      display: flex;
+      align-items: center;
+    }
+
+    .features-details .features-item ul li:last-child {
+      padding-bottom: 0;
+    }
+
+    .features-details .features-item ul i {
+      font-size: 20px;
+      margin-right: 10px;
+      color: var(--accent-color);
+    }
+
+    .features-details .features-item img {
+      border-radius: 15px;
+      box-shadow: 8px 8px 8px rgba(248, 249, 249, 0.9);
+    }
+
+    /*--------------------------------------------------------------
+# Services Section
+--------------------------------------------------------------*/
+    .services .service-item {
+      background-color: rgb(28, 140, 150);
+      border: 1px solid white;
+      height: 100%;
+      padding: 30px;
+      transition: 0.3s;
+      border-radius: 10px;
+      display: flex;
+    }
+
+    .services .service-item .icon {
+      font-size: 32px;
+      border-radius: 10px;
+      position: relative;
+      margin-right: 25px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 72px;
+      height: 72px;
+      flex-shrink: 0;
+    }
+
+    .services .service-item h3 {
+      color: color-mix(in srgb, var(--heading-color), transparent 25%);
+      font-weight: 700;
+      font-size: 22px;
+      transition: 0.3s;
+    }
+
+    .services .service-item p {
+      margin-bottom: 0;
+      color: color-mix(in srgb, var(--default-color), transparent 40%);
+      transition: 0.3s;
+    }
+
+    .services .service-item .read-more {
+      display: inline-flex;
+      align-items: center;
+      margin-top: 10px;
+      transition: 0.3s;
+      font-size: 14px;
+    }
+
+    .services .service-item .read-more i {
+      margin-left: 10px;
+    }
+
+    .services .service-item.item-cyan .icon {
+      color: #0dcaf0;
+      border: 1px solid #0dcaf0;
+      background: rgba(13, 202, 240, 0.1);
+    }
+
+    .services .service-item.item-orange .icon {
+      color: #fd7e14;
+      border: 1px solid #fd7e14;
+      background: rgba(253, 126, 20, 0.1);
+    }
+
+    .services .service-item.item-teal .icon {
+      color: #20c997;
+      border: 1px solid #20c997;
+      background: rgba(32, 201, 151, 0.1);
+    }
+
+    .services .service-item.item-red .icon {
+      color: #df1529;
+      border: 1px solid #df1529;
+      background: rgba(223, 21, 4, 0.1);
+    }
+
+    .services .service-item.item-indigo .icon {
+      color: #6610f2;
+      border: 1px solid #6610f2;
+      background: rgba(102, 16, 242, 0.1);
+    }
+
+    .services .service-item.item-pink .icon {
+      color: #f3268c;
+      border: 1px solid #f3268c;
+      background: rgba(243, 38, 140, 0.1);
+    }
+
+    .services .service-item:hover {
+      box-shadow: 0px 2px 25px rgba(0, 0, 0, 0.1);
+    }
+
+    .services .service-item:hover h3 {
+      color: var(--heading-color);
+    }
+
+    .services .service-item:hover p {
+      color: color-mix(in srgb, var(--default-color), transparent 10%);
+    }
+
+    /*--------------------------------------------------------------
+# More Features Section
+--------------------------------------------------------------*/
+    .more-features .features-image {
+      position: relative;
+      min-height: 400px;
+    }
+
+    .more-features .features-image img {
+      position: absolute;
+      inset: 0;
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: 1;
+    }
+
+    .more-features h3 {
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 20px;
+    }
+
+    .more-features .icon-box {
+      margin-top: 30px;
+    }
+
+    .more-features .icon-box i {
+      color: var(--accent-color);
+      margin-right: 15px;
+      font-size: 24px;
+      line-height: 1.2;
+    }
+
+    .more-features .icon-box h4 {
+      font-weight: 600;
+      margin-bottom: 10px;
+      font-size: 18px;
+    }
+
+    .more-features .icon-box p {
+      line-height: 24px;
+      font-size: 14px;
+      margin-bottom: 0;
+    }
+
+    #footer {
+      background-color: rgb(7, 7, 37);
+      color: #eff3f2;
+    }
+
+
+    /*--------------------------------------------------------------
+# Testimonials Section
+--------------------------------------------------------------*/
+    .testimonials .testimonial-item {
+      border-radius: 5px;
+      border: 3px solid rgb(14, 152, 148);
+      box-shadow: 8px 8px 8px rgba(245, 242, 242, 0.1);
+      box-sizing: content-box;
+      padding: 30px;
+      margin: 40px 30px;
+      min-height: 320px;
+      display: flex;
+      flex-direction: column;
+      text-align: center;
+      transition: 0.2s;
+    }
+
+    .sitename {
+      color: white;
+      font-weight: bold;
+    }
+
+    .testimonials .testimonial-item .stars {
+      margin-bottom: 15px;
+    }
+
+    .testimonials .testimonial-item .stars i {
+      color: #ffc107;
+      margin: 0 1px;
+    }
+
+    .testimonials .testimonial-item .testimonial-img {
+      width: 90px;
+      border-radius: 50%;
+      margin: 0 auto;
+    }
+
+    .testimonials .testimonial-item h3 {
+      font-size: 18px;
+      font-weight: bold;
+      margin: 10px 0 5px 0;
+    }
+
+    .testimonials .testimonial-item h4 {
+      font-size: 14px;
+      color: color-mix(in srgb, var(--default-color), transparent 40%);
+      margin: 0;
+    }
+
+    .testimonials .testimonial-item p {
+      font-style: italic;
+      margin: 0 auto 15px auto;
+    }
+
+    .testimonials .swiper-wrapper {
+      height: auto;
+    }
+
+    .testimonials .swiper-pagination {
+      margin-top: 20px;
+      position: relative;
+    }
+
+    .testimonials .swiper-pagination .swiper-pagination-bullet {
+      width: 12px;
+      height: 12px;
+      background-color: color-mix(in srgb, var(--default-color), transparent 85%);
+      opacity: 1;
+    }
+
+    .testimonials .swiper-slide {
+      opacity: 0.3;
+    }
+
+    @media (max-width: 1199px) {
+      .testimonials .swiper-slide-active {
+        opacity: 1;
+      }
+
+      .testimonials .swiper-pagination {
+        margin-top: 0;
+      }
+
+      .testimonials .testimonial-item {
+        margin: 40px 20px;
+      }
+    }
+
+    @media (min-width: 1200px) {
+      .testimonials .swiper-slide-next {
+        opacity: 1;
+        transform: scale(1.12);
+      }
+    }
+  </style>
+
+  <!-- =======================================================
+  * Template Name: QuickStart
+  * Template URL: https://bootstrapmade.com/quickstart-bootstrap-startup-website-template/
+  * Updated: Aug 07 2024 with Bootstrap v5.3.3
+  * Author: BootstrapMade.com
+  * License: https://bootstrapmade.com/license/
+  ======================================================== -->
+</head>
+
+<body class="index-page">
+
+  <header id="header" class="header d-flex align-items-center fixed-top">
+    <div class="container-fluid container-xl position-relative d-flex align-items-center">
+
+      <a href="index.html" class="logo d-flex align-items-center me-auto">
+        <img src="{% static 'logo.jpg' %}" alt="">
+        <h1 class="sitename"></h1>
+      </a>
+
+      <nav id="navmenu" class="navmenu">
+        <div class="text-center py-2">
+          <img src="{% static 'vignan.jpg' %}" alt="Vignan Logo" style="height: 100px; max-width: 100%;">
+        </div>
+        <ul>
+          <li><a href="#hero" class="active">Home</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#features">Features</a></li>
+          <li><a href="#services">Services</a></li>
+          <li><a href="#testimonials">Review's</a></li>
+          <li><a href="#footer">Contact</a></li>
+        </ul>
+        <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
+      </nav>
+    </div>
+  </header>
+
+  <main class="main">
+
+    <!-- Hero Section -->
+    <section id="hero" class="hero section">
+      <div class="hero-bg">
+      </div>
+      <div class="container text-center">
+        <div class="d-flex flex-column justify-content-center align-items-center">
+          <h1 data-aos="fade-up"><br>
+            <span>TICKETECH</span>
+          </h1>
+          <p data-aos="fade-up" data-aos-delay="100">Streamline your Support with our AI-Powdered Ticketing System<br>
+          </p>
+          <div class="d-flex" data-aos="fade-up" data-aos-delay="200">
+            <a href="{% url 'signup' %}" class="btn-get-started">Get Started</a>
+            <a href="https://youtu.be/emZqFBip6hU?si=Ys73TGao6Dp7r3AR"
+              class="glightbox btn-watch-video d-flex align-items-center"><i class="bi bi-play-circle"></i><span>Watch
+                Video</span></a>
+          </div>
+        </div>
+      </div>
+
+    </section><!-- /Hero Section -->
+
+    <!-- Featured Services Section -->
+    <section id="featured-services" class="featured-services section light-background">
+
+      <div class="container">
+
+        <div class="row gy-4">
+
+          <div class="col-xl-4 col-lg-6" data-aos="fade-up" data-aos-delay="100">
+            <div class="service-item d-flex">
+              <div class="icon flex-shrink-0"><i class="bi bi-briefcase"></i></div>
+              <div>
+                <h4 class="title" style="border: none;"><a href="#" class="stretched-link" style="border: none;">Explore
+                    Tourist Places and Museums</a></h4>
+                <p class="description" style="border: none;">You can book your Tickets priorly</p>
+              </div>
+            </div>
+          </div>
+          <!-- End Service Item -->
+
+          <div class="col-xl-4 col-lg-6" data-aos="fade-up" data-aos-delay="200">
+            <div class="service-item d-flex">
+              <div class="icon flex-shrink-0"><i class="bi bi-card-checklist"></i></div>
+              <div>
+                <h4 class="title" style="border: none;"><a href="#" class="stretched-link" style="border: none;">Book
+                    Tickets at required slot </a></h4>
+                <p class="description" style="border: none;">You can book your slot for visting place</p>
+              </div>
+            </div>
+          </div><!-- End Service Item -->
+
+          <div class="col-xl-4 col-lg-6" data-aos="fade-up" data-aos-delay="300">
+            <div class="service-item d-flex">
+              <div class="icon flex-shrink-0"><i class="bi bi-bar-chart"></i></div>
+              <div>
+                <h4 class="title"><a href="#" class="stretched-link" style="border: none;"></a>Services for exploring
+                  Museums</h4>
+                <p class="description" style="border: none;">Experience the best services of our website</p>
+              </div>
+            </div>
+          </div><!-- End Service Item -->
+
+        </div>
+
+      </div>
+
+    </section><!-- /Featured Services Section -->
+
+    <!-- About Section -->
+    <section id="about" class="about section">
+
+      <div class="container">
+
+        <div class="row gy-4">
+
+          <div class="col-lg-6 content" data-aos="fade-up" data-aos-delay="100">
+            <h2 class="who-we-are">About our System</h2>
+            <h3>Easily manage and resolve support tickets with our intelligent chatbot</h3>
+            <p class="fst-italic">
+              AI-based ticketing system offers several benefits that can significantly enhance efficiency, user
+              experience, and overall service quality.
+            </p>
+            <ul>
+              <li><i class="bi bi-check-circle"></i> <span>24/7 Availability: AI-powered ticketing systems can operate
+                  round-the-clock without the need for human agents to be available all the time.</span></li>
+              <li><i class="bi bi-check-circle"></i> <span>Personalization: AI can use data from previous interactions
+                  to tailor responses and solutions to individual customer needs, creating a more personalized
+                  experience..</span></li>
+              <li><i class="bi bi-check-circle"></i> <span>Data-Driven Insights: AI systems can analyze ticket data to
+                  identify patterns, trends, and potential areas for improvement in products or services.</span></li>
+            </ul>
+          </div>
+
+          <div class="col-lg-6 about-images" data-aos="fade-up" data-aos-delay="200">
+            <div class="row gy-4">
+              <div class="col-lg-6">
+                <img
+                  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQBDYSr1Em-eOzTJXsSekeSTEWeWJBzEUdCLU-0926ZR7G4tflf5kfENZdEDFucs7n4EzU&usqp=CAU"
+                  class="img-fluid" alt="">
+              </div>
+              <div class="col-lg-6">
+                <div class="row gy-4">
+                  <div class="col-lg-12">
+                    <img src="https://rezdy.com//wp-content/uploads/2023/04/Blog-photos-3.jpg" class="img-fluid" alt="">
+                  </div>
+                  <div class="col-lg-12">
+                    <img src="https://bigblue.academy/images/image/blog/ai-in-tourism/247.jpg" class="img-fluid" alt="">
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+    </section><!-- /About Section -->
+
+
+    <!-- Services Section -->
+    <section id="features" class="services section light-background">
+
+      <!-- Section Title -->
+      <div class="container section-title" data-aos="fade-up">
+        <h2>Features</h2>
+        <p> AI-based ticketing system highly efficient, user-friendly, and adaptable</p>
+      </div><!-- End Section Title -->
+
+      <div class="container">
+
+        <div class="row g-5">
+
+
+
+          <div class="col-lg-6" data-aos="fade-up" data-aos-delay="200">
+            <div class="service-item item-orange position-relative">
+              <i class="bi bi-broadcast icon"></i>
+              <div>
+                <h3>Automated Ticket Creation</h3>
+                <p>Automatically generate tickets from various communication channels such as email, chat, or social
+                  media.</p>
+              </div>
+            </div>
+          </div><!-- End Service Item -->
+
+          <div class="col-lg-6" data-aos="fade-up" data-aos-delay="400">
+            <div class="service-item item-red position-relative">
+              <i class="bi bi-bounding-box-circles icon"></i>
+              <div>
+                <h3>AI-powered chatbot for Museum's</h3>
+                <p>Website that can assist visitors with ticket purchases,the chatbot can suggest ticket options, best
+                  review's </p>
+              </div>
+            </div>
+          </div><!-- End Service Item -->
+
+          <div class="col-lg-6" data-aos="fade-up" data-aos-delay="500">
+            <div class="service-item item-indigo position-relative">
+              <i class="bi bi-calendar4-week icon"></i>
+              <div>
+                <h3>Self-Service Portal</h3>
+                <p>Provide customers with a self-service portal where they can find answers to common questions, track
+                  ticket status, and manage their inquiries.
+                </p>
+
+              </div>
+            </div>
+          </div><!-- End Service Item -->
+
+          <div class="col-lg-6" data-aos="fade-up" data-aos-delay="600">
+            <div class="service-item item-pink position-relative">
+              <i class="bi bi-chat-square-text icon"></i>
+              <div>
+                <h3>Customer Feedback</h3>
+                <p>Automatically collect customer feedback after ticket resolution to measure satisfaction and identify
+                  areas for improvement.</p>
+
+              </div>
+            </div>
+          </div><!-- End Service Item -->
+
+        </div>
+
+      </div>
+
+    </section><!-- /Services Section -->
+
+    <!-- More Features Section -->
+    <section id="more-features" class="more-features section">
+
+      <div class="container">
+
+        <div class="row justify-content-around gy-4">
+          <section id="services" class="features section">
+
+            <!-- Section Title -->
+            <div class="container section-title" data-aos="fade-up">
+              <h2>Services</h2>
+            </div>
+
+          </section>
+
+          <div class="col-lg-6 d-flex flex-column justify-content-center order-2 order-lg-1" data-aos="fade-up"
+            data-aos-delay="100">
+            <h3>Services that enhance customer support and explore Museums</h3>
+            <p>These services make an AI-based ticketing system a versatile and powerful tool for improving customer
+              support and operational efficiency.</p>
+
+            <div class="row">
+
+              <div class="col-lg-6 icon-box d-flex">
+                <i class="bi bi-easel flex-shrink-0"></i>
+                <div>
+                  <h4>Ticket Management</h4>
+                  <p>Automatically generate and log tickets from customer interactions across multiple channels.</p>
+                </div>
+              </div><!-- End Icon Box -->
+
+              <div class="col-lg-6 icon-box d-flex">
+                <i class="bi bi-patch-check flex-shrink-0"></i>
+                <div>
+                  <h4>Escalation Services</h4>
+                  <p>Automatically escalate unresolved tickets to higher support tiers or specialized teams.</p>
+                </div>
+              </div><!-- End Icon Box -->
+
+              <div class="col-lg-6 icon-box d-flex">
+                <i class="bi bi-brightness-high flex-shrink-0"></i>
+                <div>
+                  <h4>Personalization Services</h4>
+                  <p>Use AI to provide personalized responses and solutions based on customer history and preferences.
+                  </p>
+                </div>
+              </div><!-- End Icon Box -->
+
+              <div class="col-lg-6 icon-box d-flex">
+                <i class="bi bi-brightness-high flex-shrink-0"></i>
+                <div>
+                  <h4>Ratings and Reviews of Places</h4>
+                  <p>Gives detailed reviews and ratings of the Museum or tourist place selecetd</p>
+                </div>
+              </div><!-- End Icon Box -->
+
+            </div>
+
+          </div>
+
+          <div class="features-image col-lg-5 order-1 order-lg-2" data-aos="fade-up" data-aos-delay="200">
+            <img
+              src="https://c8.alamy.com/comp/2M1M6PY/red-push-pin-pointing-on-location-of-india-world-map-close-up-view-stock-photograph-2M1M6PY.jpg"
+              alt="">
+          </div>
+
+        </div>
+
+      </div>
+
+    </section><!-- /More Features Section -->
+    <!-- Testimonials Section -->
+    <section id="testimonials" class="testimonials section light-background">
+
+      <!-- Section Title -->
+      <div class="container section-title" data-aos="fade-up">
+        <h2>Our Team</h2>
+        <p>Our team has done an excellent job of making this valuable project.</p>
+        <br>
+      </div><!-- End Section Title -->
+
+      <div class="container" data-aos="fade-up" data-aos-delay="100">
+
+        <div class="swiper init-swiper">
+          <script type="application/json" class="swiper-config">
+            {
+              "loop": true,
+              "speed": 600,
+              "autoplay": {
+                "delay": 5000
+              },
+              "slidesPerView": "auto",
+              "pagination": {
+                "el": ".swiper-pagination",
+                "type": "bullets",
+                "clickable": true
+              },
+              "breakpoints": {
+                "320": {
+                  "slidesPerView": 1,
+                  "spaceBetween": 40
+                },
+                "1200": {
+                  "slidesPerView": 3,
+                  "spaceBetween": 1
+                }
+              }
+            }
+          </script>
+          <div class="swiper-wrapper">
+
+            <div class="swiper-slide">
+              <div class="testimonial-item">
+                <div class="stars">
+                  <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i
+                    class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
+                </div>
+                <p>
+                  As the backend developer, you are responsible for building and managing the server-side of the
+                  application using Django. You develop RESTful APIs to seamlessly connect the frontend with the
+                  database, ensuring smooth data flow. Your role involves handling user authentication, role-based
+                  access control, and security measures while optimizing backend performance for a faster and more
+                  efficient ticketing system.
+
+                </p>
+                <div class="profile mt-auto">
+
+                  <h3>~Nikhil <a href="https://www.linkedin.com/in/your-profile" target="_blank" class="linkedin-icon">
+                      <i class="bi bi-linkedin" style="color: #101413; font-size: 20px; margin-left: 10px;"></i>
+                    </a></h3>
+                  <h3>BACKEND DEVELOPER</h3>
+
+                </div>
+              </div>
+            </div><!-- End testimonial item -->
+
+            <div class="swiper-slide">
+              <div class="testimonial-item">
+                <div class="stars">
+                  <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i
+                    class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
+                </div>
+                <p>
+                  Gnaneshwar brings the user interface to life by developing the frontend using HTML CSS JS and
+                  Bootstrap.Hisfocus is on ensuring the website is responsive and visually appealing across all devices,
+                  desktops to mobile screens. He implements interactive features like ticket booking, search filters,
+                  and intuitive navigation, making the user experience seamless. He also optimizes website
+                  performance, animations, and transitions while working closely with the UI/UX designer to ensure the
+                  final design is pixel-perfect.
+                </p>
+                <div class="profile mt-auto">
+
+                  <h3>~Gnaneshwar <a href="https://www.linkedin.com/in/your-profile" target="_blank"
+                      class="linkedin-icon">
+                      <i class="bi bi-linkedin" style="color: #0d0f10; font-size: 20px; margin-left: 10px;"></i>
+                    </a></h3>
+                  <h3>FRONTEND DEVELOPER</h3>
+
+                </div>
+              </div>
+            </div><!-- End testimonial item -->
+
+            <div class="swiper-slide">
+              <div class="testimonial-item">
+                <div class="stars">
+                  <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i
+                    class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
+                </div>
+                <p>
+                  Prashanth is responsible for designing the visual identity of TicketTech, ensuring that users have an
+                  intuitive and engaging experience. He creates wireframes and prototypes using Figma or Adobe XD,
+                  carefully selecting color schemes, typography, and iconography to enhance usability. His job also
+                  involves conducting usability testing and refining the design based on feedback to create a seamless
+                  flow.He collaborates with Gnaneshwar to ensure that the frontend is implemented according to his
+                  designs
+                  while maintaining consistency across all pages.
+                </p>
+                <div class="profile mt-auto">
+
+                  <h3>~Prashanth <a href="https://www.linkedin.com/in/your-profile" target="_blank"
+                      class="linkedin-icon">
+                      <i class="bi bi-linkedin" style="color: #111517; font-size: 20px; margin-left: 10px;"></i>
+                    </a></h3>
+                  <h3>UI/UX DESIGNER</h3>
+
+                </div>
+              </div>
+            </div><!-- End testimonial item -->
+
+            <div class="swiper-slide">
+              <div class="testimonial-item">
+                <div class="stars">
+                  <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i
+                    class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
+                </div>
+                <p>
+                  Kalyan manages the MySQL database that stores all ticketing information, ensuring that data is
+                  structured, secure, and optimized for fast retrieval. He designs the database schema, writes optimized
+                  SQL queries, and maintains data integrity to prevent errors. His role also includes working with the
+                  backend developer to implement efficient API-driven interactions with the database. Additionally, he
+                  takes care of data security, backup management, and performance optimization to keep the system
+                  running smoothly.
+
+                </p>
+                <div class="profile mt-auto">
+
+                  <h3>~Kalyan <a href="https://www.linkedin.com/in/your-profile" target="_blank" class="linkedin-icon">
+                      <i class="bi bi-linkedin" style="color: #090b0c; font-size: 20px; margin-left: 10px;"></i>
+                    </a></h3>
+                  <h3>DATABASE PROVIDER</h3>
+
+                </div>
+              </div>
+            </div><!-- End testimonial item -->
+
+            <div class="swiper-slide">
+              <div class="testimonial-item">
+                <div class="stars">
+                  <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i
+                    class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
+                </div>
+                <p>Mirjavali ensures that the project stays on track, assigning tasks, setting deadlines, and
+                  facilitating
+                  communication among team members. He maintains detailed documentation of project progress, PPT
+                  specifications, and workflows, ensuring clarity and organization.He also prepares reports and
+                  presentations for hackathons, project submissions, and meetings.
+                </p>
+                <div class="profile mt-auto">
+
+                  <h3> ~Mirjavali <a href="https://www.linkedin.com/in/your-profile" target="_blank"
+                      class="linkedin-icon">
+                      <i class="bi bi-linkedin" style="color: #0e1112; font-size: 20px; margin-left: 10px;"></i>
+                    </a></h3>
+                  <h3>DOCUMENTATOR</h3>
+
+                </div>
+              </div>
+            </div><!-- End testimonial item -->
+            <div class="swiper-slide">
+              <div class="testimonial-item">
+                <div class="stars">
+                  <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i
+                    class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
+                </div>
+                <p>
+                  Manikanta is responsible for testing the TicketTech system to ensure that it meets quality standards
+                  and
+                  functions as intended. He writes test cases, performs manual and automated testing, and reports bugs
+                  to the development team. His role involves identifying and resolving issues, verifying fixes, and
+                  ensuring that the system is stable and reliable. He also collaborates with the team to improve testing
+                  processes and implement best practices.
+                </p>
+                <div class="profile mt-auto">
+
+                  <h3> ~Manikanta <a href="https://www.linkedin.com/in/your-profile" target="_blank"
+                      class="linkedin-icon">
+                      <i class="bi bi-linkedin" style="color: #101517; font-size: 20px; margin-left: 10px;"></i>
+                    </a></h3>
+                  <h3>TESTER</h3>
+
+                </div>
+              </div>
+            </div><!-- End testimonial item -->
+
+          </div>
+          <div class="swiper-pagination"></div>
+        </div>
+
+      </div>
+
+    </section><!-- /Testimonials Section -->
+
+    <!-- Contact Section -->
+
+
+  </main>
+
+  <footer id="footer" class="footer position-relative light-background">
+
+    <div class="container footer-top">
+      <div class="row gy-4">
+        <div class="col-lg-4 col-md-6 footer-about">
+          <a href="homepage.html" class="logo d-flex align-items-center">
+            <span class="sitename">TICKETECH</span>
+          </a>
+          <div class="footer-contact pt-3">
+            <p>VIIT(A)</p>
+            <p>VISAKHAPATNAM</p>
+            <p class="mt-3"><strong>Phone:</strong> <span>8522978808</span></p>
+            <p><strong>Email:</strong> <span>viit.edu@gmail.com</span></p>
+          </div>
+        </div>
+
+        <div class="col-lg-2 col-md-3 footer-links">
+          <h4>Useful Links</h4>
+          <ul>
+            <li><a href="#about">About us</a></li>
+            <li><a href="#services">Services</a></li>
+            <li><a href="#features">Features</a></li>
+            <li><a href="#testimonials">Review's</a></li>
+            <li><a href="#footer">contact</a></li>
+          </ul>
+        </div>
+
+        <div class="col-lg-4 col-md-12 footer-newsletter">
+          <h4>Our Newsletter</h4>
+          <p>Subscribe to our newsletter and receive the latest news about our services!</p>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="container copyright text-center mt-4">
+      <p>© <span>Copyright</span> <strong class="px-1 sitename">Ticket Tech</strong><span>All Rights Reserved</span></p>
+      <div class="credits">
+        <!-- All the links in the footer should remain intact. -->
+        <!-- You can delete the links only if you've purchased the pro version. -->
+        <!-- Licensing information: https://bootstrapmade.com/license/ -->
+        <!-- Purchase the pro version with working PHP/AJAX contact form: [buy-url] -->
+        Designed by <a>Architects of AI</a>
+      </div>
+    </div>
+
+  </footer>
+
+  <!-- Scroll Top -->
+  <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i
+      class="bi bi-arrow-up-short"></i></a>
+
+  <!-- Preloader -->
+  <div id="preloader"></div>
+
+  <!-- Vendor JS Files -->
+  <script src="{% static 'assets/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+  <script src="{% static 'assets/vendor/php-email-form/validate.js' %}"></script>
+  <script src="{% static 'assets/vendor/aos/aos.js' %}"></script>
+  <script src="{% static 'assets/vendor/glightbox/js/glightbox.min.js' %}"></script>
+  <script src="{% static 'assets/vendor/swiper/swiper-bundle.min.js' %}"></script>
+
+  <!-- Main JS File -->
+  <script>
+
+    /**
+* Template Name: QuickStart
+* Template URL: https://bootstrapmade.com/quickstart-bootstrap-startup-website-template/
+* Updated: Aug 07 2024 with Bootstrap v5.3.3
+* Author: BootstrapMade.com
+* License: https://bootstrapmade.com/license/
+*/
+
+
+    (function () {
+      "use strict";
+
+      /**
+       * Apply .scrolled class to the body as the page is scrolled down
+       */
+      function toggleScrolled() {
+        const selectBody = document.querySelector('body');
+        const selectHeader = document.querySelector('#header');
+        if (!selectHeader.classList.contains('scroll-up-sticky') && !selectHeader.classList.contains('sticky-top') && !selectHeader.classList.contains('fixed-top')) return;
+        window.scrollY > 100 ? selectBody.classList.add('scrolled') : selectBody.classList.remove('scrolled');
+      }
+
+      document.addEventListener('scroll', toggleScrolled);
+      window.addEventListener('load', toggleScrolled);
+
+      /**
+       * Mobile nav toggle
+       */
+      const mobileNavToggleBtn = document.querySelector('.mobile-nav-toggle');
+
+      function mobileNavToogle() {
+        document.querySelector('body').classList.toggle('mobile-nav-active');
+        mobileNavToggleBtn.classList.toggle('bi-list');
+        mobileNavToggleBtn.classList.toggle('bi-x');
+      }
+      mobileNavToggleBtn.addEventListener('click', mobileNavToogle);
+
+      /**
+       * Hide mobile nav on same-page/hash links
+       */
+      document.querySelectorAll('#navmenu a').forEach(navmenu => {
+        navmenu.addEventListener('click', () => {
+          if (document.querySelector('.mobile-nav-active')) {
+            mobileNavToogle();
+          }
+        });
+
+      });
+
+      /**
+       * Toggle mobile nav dropdowns
+       */
+      document.querySelectorAll('.navmenu .toggle-dropdown').forEach(navmenu => {
+        navmenu.addEventListener('click', function (e) {
+          e.preventDefault();
+          this.parentNode.classList.toggle('active');
+          this.parentNode.nextElementSibling.classList.toggle('dropdown-active');
+          e.stopImmediatePropagation();
+        });
+      });
+
+      /**
+       * Preloader
+       */
+      const preloader = document.querySelector('#preloader');
+      if (preloader) {
+        window.addEventListener('load', () => {
+          preloader.remove();
+        });
+      }
+
+      /**
+       * Scroll top button
+       */
+      let scrollTop = document.querySelector('.scroll-top');
+
+      function toggleScrollTop() {
+        if (scrollTop) {
+          window.scrollY > 100 ? scrollTop.classList.add('active') : scrollTop.classList.remove('active');
+        }
+      }
+      scrollTop.addEventListener('click', (e) => {
+        e.preventDefault();
+        window.scrollTo({
+          top: 0,
+          behavior: 'smooth'
+        });
+      });
+
+      window.addEventListener('load', toggleScrollTop);
+      document.addEventListener('scroll', toggleScrollTop);
+
+      /**
+       * Animation on scroll function and init
+       */
+      function aosInit() {
+        AOS.init({
+          duration: 600,
+          easing: 'ease-in-out',
+          once: true,
+          mirror: false
+        });
+      }
+      window.addEventListener('load', aosInit);
+
+      /**
+       * Initiate glightbox
+       */
+      const glightbox = GLightbox({
+        selector: '.glightbox'
+      });
+
+      /**
+       * Frequently Asked Questions Toggle
+       */
+      document.querySelectorAll('.faq-item h3, .faq-item .faq-toggle').forEach((faqItem) => {
+        faqItem.addEventListener('click', () => {
+          faqItem.parentNode.classList.toggle('faq-active');
+        });
+      });
+
+      /**
+       * Init swiper sliders
+       */
+      function initSwiper() {
+        document.querySelectorAll(".init-swiper").forEach(function (swiperElement) {
+          let config = JSON.parse(
+            swiperElement.querySelector(".swiper-config").innerHTML.trim()
+          );
+
+          if (swiperElement.classList.contains("swiper-tab")) {
+            initSwiperWithCustomPagination(swiperElement, config);
+          } else {
+            new Swiper(swiperElement, config);
+          }
+        });
+      }
+
+      window.addEventListener("load", initSwiper);
+
+      /**
+       * Correct scrolling position upon page load for URLs containing hash links.
+       */
+      window.addEventListener('load', function (e) {
+        if (window.location.hash) {
+          if (document.querySelector(window.location.hash)) {
+            setTimeout(() => {
+              let section = document.querySelector(window.location.hash);
+              let scrollMarginTop = getComputedStyle(section).scrollMarginTop;
+              window.scrollTo({
+                top: section.offsetTop - parseInt(scrollMarginTop),
+                behavior: 'smooth'
+              });
+            }, 100);
+          }
+        }
+      });
+
+      /**
+       * Navmenu Scrollspy
+       */
+      let navmenulinks = document.querySelectorAll('.navmenu a');
+
+      function navmenuScrollspy() {
+        navmenulinks.forEach(navmenulink => {
+          if (!navmenulink.hash) return;
+          let section = document.querySelector(navmenulink.hash);
+          if (!section) return;
+          let position = window.scrollY + 200;
+          if (position >= section.offsetTop && position <= (section.offsetTop + section.offsetHeight)) {
+            document.querySelectorAll('.navmenu a.active').forEach(link => link.classList.remove('active'));
+            navmenulink.classList.add('active');
+          } else {
+            navmenulink.classList.remove('active');
+          }
+        })
+      }
+      window.addEventListener('load', navmenuScrollspy);
+      document.addEventListener('scroll', navmenuScrollspy);
+
+    })();
+
+
+  </script>
+</body>
+
+</html>
